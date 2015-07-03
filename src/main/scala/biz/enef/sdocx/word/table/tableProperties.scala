@@ -17,4 +17,6 @@ object TableProperty {
     XMLContent(<w:tblW w:w={width} type="pct"/>)
   }
   def style(name: String) : TableProperty = XMLContent(<w:tblStyle w:val={name} />)
+
+  val fixedLayout: TableProperty = XMLContent(<w:tblLayout w:type="fixed" />)
 }

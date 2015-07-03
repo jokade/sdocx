@@ -14,7 +14,7 @@ trait TableColumn extends XMLSerializable
 object TableColumn {
   def apply(width: Int): TableColumn = XMLContent( <w:gridCol w:w={width.toString}/> )
   def apply(percent: Float): TableColumn = {
-    val width = Math.round(percent*50)+"%" //Math.round(percent*102.96).toString
+    val width = Math.round(percent*102.96).toString
     XMLContent( <w:gridCol w:w={width}/> )
   }
   def apply(): TableColumn = XMLContent( <w:gridCol /> )
