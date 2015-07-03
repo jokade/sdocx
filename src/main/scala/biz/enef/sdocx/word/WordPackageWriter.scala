@@ -6,7 +6,7 @@
 //                      Distributed under the MIT license.
 package biz.enef.sdocx.word
 
-import java.io.OutputStream
+import java.io.{FileOutputStream, BufferedOutputStream, OutputStream}
 
 import biz.enef.sdocx.opc._
 import biz.enef.sdocx.opc.zip.ZipPackageWriter
@@ -25,5 +25,11 @@ object WordPackageWriter {
   def write(out: OutputStream, doc: WordDocument): Unit = {
     val parts = Seq(contentTypes,relationships,XmlPartProducer("word/document.xml",doc))
     ZipPackageWriter.writeParts(parts,out)
+  }
+
+  def write(file: String, doc: WordDocument): Unit = {
+    val out = new BufferedOutputStream(new FileOutputStream(file))
+    write(out,doc)
+    out.close()
   }
 }

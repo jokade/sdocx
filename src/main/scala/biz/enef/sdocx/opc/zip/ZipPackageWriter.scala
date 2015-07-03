@@ -23,17 +23,4 @@ object ZipPackageWriter {
     zip.close()
   }
 
-  /*
-  private def ensureDirectory(path: Seq[String], dirs: Set[Seq[String]], zip: ZipOutputStream) : Set[Seq[String]] =
-    if(dirs.contains(path)) dirs
-    else {
-      path.foldLeft(""){ (prefix,rest) =>
-        val p = prefix+rest.head+"/"
-        zip.putNextEntry(new ZipEntry(p))
-        zip.closeEntry()
-        p
-      }
-      dirs + path
-    }
-    */
 }

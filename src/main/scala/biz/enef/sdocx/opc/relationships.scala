@@ -6,15 +6,19 @@
 //                      Distributed under the MIT license.
 package biz.enef.sdocx.opc
 
-import scala.xml.Node
+import java.io.Writer
 
 case class Relationship(id: String, tpe: String, target: String) extends XMLSerializable {
-  def toXML = <Relationship Id={id} Type={tpe} Target={target} />
+  final def write(w: Writer): Unit =
+    w.write(s"""<Relationship Id="$id" Type="$tpe" Target="$target"/>""")
 }
 
-case class RelationshipsProducer(name: String, relationships: Iterable[Relationship]) extends XmlPartProducer {
-  lazy val node: Node =
-<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
-  {relationships.map(_.toXML)}
-</Relationships>
+case class RelationshipsProducer(name: String, relationships: Iterable[Relationship]) extends XmlPartProducer
+  with XMLSerializable {
+  def root = this
+  final def write(w: Writer): Unit = {
+    w.write("""<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">""")
+    relationships.foreach(_.write(w))
+    w.write("</Relationships>")
+  }
 }

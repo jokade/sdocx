@@ -5,6 +5,7 @@ lazy val commonSettings = Seq(
   scalaVersion := "2.11.6",
   scalacOptions ++= Seq("-deprecation","-unchecked","-feature","-Xlint"),
   libraryDependencies ++= Seq(
+    "org.scala-lang.modules" % "scala-xml_2.11" % "1.0.3",
     "com.lihaoyi" %% "utest" % "0.3.1"
   ),
   testFrameworks += new TestFramework("utest.runner.Framework")
@@ -17,7 +18,6 @@ lazy val sdocx = project.in(file(".")).
   settings( 
     name := "sdocx",
     libraryDependencies ++= Seq(
-      "org.scala-lang.modules" % "scala-xml_2.11" % "1.0.3"
     ),
     resolvers += Resolver.sonatypeRepo("releases")
   )
