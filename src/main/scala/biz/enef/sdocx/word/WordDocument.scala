@@ -12,7 +12,10 @@ import biz.enef.sdocx.opc.XMLSerializable
 
 case class WordDocument(content: WordBodyContent*) extends XMLSerializable {
   def write(w: Writer): Unit = {
-    w.write("""<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body>""")
+    w.write(
+      """<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"
+        |            xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">
+        |<w:body>""".stripMargin)
     content.foreach(_.write(w))
     w.write("""</w:body></w:document>""")
   }

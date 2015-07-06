@@ -6,6 +6,7 @@ lazy val commonSettings = Seq(
   scalacOptions ++= Seq("-deprecation","-unchecked","-feature","-Xlint"),
   libraryDependencies ++= Seq(
     "org.scala-lang.modules" % "scala-xml_2.11" % "1.0.3",
+    "biz.enef" %% "slogging" % "0.3",
     "com.lihaoyi" %% "utest" % "0.3.1"
   ),
   testFrameworks += new TestFramework("utest.runner.Framework")
