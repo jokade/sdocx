@@ -6,7 +6,7 @@
 //                      Distributed under the MIT license.
 package biz.enef.sdocx.word
 
-import biz.enef.sdocx.opc.XMLNodeSerializable
+import biz.enef.sdocx.opc.{XMLSerializable, XMLNodeSerializable}
 import biz.enef.sdocx.word.table.TableXMLContent
 
 import scala.xml.Node

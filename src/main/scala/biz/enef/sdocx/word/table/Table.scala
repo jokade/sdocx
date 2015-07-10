@@ -27,5 +27,6 @@ trait TableXMLContent extends XMLSerializable
   with TableProperty
   with TableColumn
   with TableRow
+  with TableRowProperty
   with TableCell
   with TableCellProperty

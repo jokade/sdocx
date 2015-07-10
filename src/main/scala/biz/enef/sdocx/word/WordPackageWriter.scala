@@ -40,8 +40,9 @@ object WordPackageWriter {
    * @param out OutputStream to which the updated package is written
    * @param doc
    */
-  def update(in: ZipInputStream, out: OutputStream, doc: WordDocument): Unit =
+  def update(in: ZipInputStream, out: OutputStream, doc: WordDocument) : Unit = {
     ZipPackageWriter.updatePackage(Seq(XmlPartProducer("word/document.xml",doc)),in,out)
+  }
 
 
 }
