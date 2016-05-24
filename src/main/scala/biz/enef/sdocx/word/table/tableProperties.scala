@@ -9,7 +9,7 @@ package biz.enef.sdocx.word.table
 import java.io.Writer
 
 import biz.enef.sdocx.opc.XMLSerializable
-import biz.enef.sdocx.word.XMLContent
+import biz.enef.sdocx.word.{WordFormatVersion, WordConfig, XMLContent}
 
 /**
  * Table properties (i.e. contents of `<w:tblPr>`)
@@ -22,18 +22,20 @@ object TableProperty {
    *
    * @param percent
    */
-  def width(percent: Float) : TableProperty = {
-    val width = Math.round(percent*50) + "%"
-    XMLContent(<w:tblW w:w={width} type="pct"/>)
+  def widthPct(percent: Double)(implicit cfg: WordConfig) : TableProperty = {
+    val width = Math.round(percent*50) + (if(cfg.isLegacy) "" else "%")
+    XMLContent(<w:tblW w:w={width} w:type="pct"/>)
   }
   def style(name: String) : TableProperty = XMLContent(<w:tblStyle w:val={name} />)
 
-  def cellMargins(top: Int = 0, start: Int = 0, bottom: Int = 0, end: Int = 0) : TableProperty = XMLContent(
+  def cellMargins(top: Int = 0, start: Int = 0, bottom: Int = 0, end: Int = 0)(implicit cfg: WordConfig) : TableProperty = XMLContent(
     <w:tblCellMar>
       {if(top>0) <w:top w:w={top.toString} w:type="dxa"/>}
-      {if(start>0) <w:start w:w={start.toString} w:type="dxa"/>}
+      {if(start>0 && cfg.isLegacy) <w:left w:w={start.toString} w:type="dxa"/>
+       else if(start>0) <w:start w:w={start.toString} w:type="dxa"/>}
       {if(bottom>0) <w:bottom w:w={bottom.toString} w:type="dxa"/>}
-      {if(end>0) <w:end w:w={end.toString} w:type="dxa"/>}
+      {if(end>0 && cfg.isLegacy) <w:right w:w={end.toString} w:type="dxa"/>
+       else if(end>0) <w:end w:w={end.toString} w:type="dxa"/>}
     </w:tblCellMar>
   )
 

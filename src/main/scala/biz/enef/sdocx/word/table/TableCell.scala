@@ -9,7 +9,7 @@ package biz.enef.sdocx.word.table
 import java.io.Writer
 
 import biz.enef.sdocx.opc.XMLSerializable
-import biz.enef.sdocx.word.{WordBodyContent, XMLContent}
+import biz.enef.sdocx.word.{WordConfig, WordBodyContent, XMLContent}
 
 trait TableCell extends XMLSerializable
 
@@ -61,10 +61,10 @@ object TableCellBorder {
     Impl("top",color,shadow,space,sz,value)
   def bottom(color: String = "auto", shadow: Boolean = false, space: Int = 0, sz: Int = 8, value: String = "single") : TableCellBorder =
     Impl("bottom",color,shadow,space,sz,value)
-  def start(color: String = "auto", shadow: Boolean = false, space: Int = 0, sz: Int = 8, value: String = "single") : TableCellBorder =
-    Impl("start",color,shadow,space,sz,value)
-  def end(color: String = "auto", shadow: Boolean = false, space: Int = 0, sz: Int = 8, value: String = "single") : TableCellBorder =
-    Impl("end",color,shadow,space,sz,value)
+  def start(color: String = "auto", shadow: Boolean = false, space: Int = 0, sz: Int = 8, value: String = "single")(implicit cfg: WordConfig) : TableCellBorder =
+    Impl(if(cfg.isLegacy) "left" else "start",color,shadow,space,sz,value)
+  def end(color: String = "auto", shadow: Boolean = false, space: Int = 0, sz: Int = 8, value: String = "single")(implicit cfg: WordConfig) : TableCellBorder =
+    Impl(if(cfg.isLegacy) "right" else "end",color,shadow,space,sz,value)
   def insideH(color: String = "auto", shadow: Boolean = false, space: Int = 0, sz: Int = 8, value: String = "single") : TableCellBorder =
     Impl("insideH",color,shadow,space,sz,value)
   def insideV(color: String = "auto", shadow: Boolean = false, space: Int = 0, sz: Int = 8, value: String = "single") : TableCellBorder =
